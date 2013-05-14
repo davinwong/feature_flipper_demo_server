@@ -112,7 +112,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/Users/dev/hack_week_flipper/templates/",
+    "/Users/dev/hack_week_flipper/feature_flipper/templates/",
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

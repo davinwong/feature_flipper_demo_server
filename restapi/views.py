@@ -33,16 +33,15 @@ def test(request):
 	if waffle.flag_is_active(request, 'answer'):
 		c["answer_array"] = Answer.objects.all()
 
+	c['cookie_answer'] = request.COOKIES.get('dwf_answer')
+	c['cookie_question'] = request.COOKIES.get('dwf_question')
+	c['cookie_feature1'] = request.COOKIES.get('dwf_feature1')
+
 	return render_to_response('test.html',c, context_instance = RequestContext(request))
 
 def feature_user(request, feature_number, user_number):
-	c = {}
-	c['feature'] = feature_number
-	c['user'] = user_number
 	# flag = Flag.objects.get(id=feature_number)
 	# user = User.objects.get(id=user_number)
-
-	# c['flag'] = flag
 
 	# if "everyone" is already set
 	feature = Flag.objects.get(id=feature_number)
@@ -53,18 +52,35 @@ def feature_user(request, feature_number, user_number):
 		json = "[{'flag': false }]"
 		return HttpResponse(json)
 
-	# if "everyone" is unknown / null
-	flag = Flag.objects.filter(users__id=user_number, id=feature_number)
+	# if "everyone" is unknown / null: check user
+	flag_user = Flag.objects.filter(users__id=user_number, id=feature_number)
 
-	if flag:
-		flag_bool = True
+	if flag_user:
+		flag_user_bool = True
 	else:
-		flag_bool = False
+		flag_user_bool = False
 
-	if flag_bool:
+	if flag_user_bool:
 		json = "[{'flag': true }]"
-	else:
-		json = "[{'flag': false }]"
+		return HttpResponse(json)
 
+	# check cookies
+	cookie_string = 'dwf_' + feature.name
+	flag_cookie = request.COOKIES.get(cookie_string)
+
+	# compare string
+	if flag_cookie:
+		if flag_cookie == "True":
+			json = "[{'flag': true }]"
+			return HttpResponse(json)
+		if flag_cookie == "False":
+			json = "[{'flag': false }]"
+			return HttpResponse(json)
+
+	if not flag_user_bool:
+		json = "[{'flag': false }]"
+		return HttpResponse(json)
+
+	json = "[{'flag': false }]"
 	return HttpResponse(json)
 
