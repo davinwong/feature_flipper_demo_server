@@ -6,6 +6,7 @@ import waffle
 from waffle.models import Flag
 from django.contrib.auth.models import User
 from restapi.models import Question, Answer
+import json
 
 def test(request):
 	c = {}
@@ -46,11 +47,13 @@ def feature_user(request, feature_number, user_number):
 	# if "everyone" is already set
 	feature = Flag.objects.get(id=feature_number)
 	if feature.everyone == True:
-		json = "[{'active': true }]"
-		return HttpResponse(json)
+		myjson = json.dumps({'active': True})
+		#json = "[{'active': true }]"
+		return HttpResponse(myjson)
 	elif feature.everyone == False:
-		json = "[{'active': false }]"
-		return HttpResponse(json)
+		myjson = json.dumps({'active': False})
+		#myjson = "[{'active': false }]"
+		return HttpResponse(myjson)
 
 	# if "everyone" is unknown / null: check user
 	flag_user = Flag.objects.filter(users__id=user_number, id=feature_number)
@@ -61,8 +64,8 @@ def feature_user(request, feature_number, user_number):
 		flag_user_bool = False
 
 	if flag_user_bool:
-		json = "[{'active': true }]"
-		return HttpResponse(json)
+		myjson = json.dumps({'active': True})
+		return HttpResponse(myjson)
 
 	# check cookies
 	cookie_string = 'dwf_' + feature.name
@@ -71,16 +74,16 @@ def feature_user(request, feature_number, user_number):
 	# compare string
 	if flag_cookie:
 		if flag_cookie == "True":
-			json = "[{'active': true }]"
-			return HttpResponse(json)
+			myjson = json.dumps({'active': True})
+			return HttpResponse(myjson)
 		if flag_cookie == "False":
-			json = "[{'active': false }]"
-			return HttpResponse(json)
+			myjson = json.dumps({'active': False})
+			return HttpResponse(myjson)
 
 	if not flag_user_bool:
-		json = "[{'active': false }]"
-		return HttpResponse(json)
+		myjson = json.dumps({'active': False})
+		return HttpResponse(myjson)
 
-	json = "[{'active': false }]"
-	return HttpResponse(json)
+	myjson = json.dumps({'active': False})
+	return HttpResponse(myjson)
 
