@@ -46,10 +46,10 @@ def feature_user(request, feature_number, user_number):
 	# if "everyone" is already set
 	feature = Flag.objects.get(id=feature_number)
 	if feature.everyone == True:
-		json = "[{'flag': true }]"
+		json = "[{'active': true }]"
 		return HttpResponse(json)
 	elif feature.everyone == False:
-		json = "[{'flag': false }]"
+		json = "[{'active': false }]"
 		return HttpResponse(json)
 
 	# if "everyone" is unknown / null: check user
@@ -61,7 +61,7 @@ def feature_user(request, feature_number, user_number):
 		flag_user_bool = False
 
 	if flag_user_bool:
-		json = "[{'flag': true }]"
+		json = "[{'active': true }]"
 		return HttpResponse(json)
 
 	# check cookies
@@ -71,16 +71,16 @@ def feature_user(request, feature_number, user_number):
 	# compare string
 	if flag_cookie:
 		if flag_cookie == "True":
-			json = "[{'flag': true }]"
+			json = "[{'active': true }]"
 			return HttpResponse(json)
 		if flag_cookie == "False":
-			json = "[{'flag': false }]"
+			json = "[{'active': false }]"
 			return HttpResponse(json)
 
 	if not flag_user_bool:
-		json = "[{'flag': false }]"
+		json = "[{'active': false }]"
 		return HttpResponse(json)
 
-	json = "[{'flag': false }]"
+	json = "[{'active': false }]"
 	return HttpResponse(json)
 
