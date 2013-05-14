@@ -1,0 +1,28 @@
+{% load waffle_tags %}
+
+{{ feature11 }}
+<body>
+
+{% flag feature1 %}
+<p>template feature1 on</p>
+{% else %}
+<p>template feature1 off</p>
+{% endflag %}
+
+{% flag question %}
+<h1>Question Module</h1>
+
+	{% for q in question_array %}
+	{{ q }}<br/>
+	{% endfor %}
+{% endflag %}
+
+{% flag answer %}
+<h1>Answer Module</h1>
+	{% for answer in answer_array %}
+		{{ answer }}<br/>
+	{% endfor %}
+{% endflag %}
+
+
+</body>
