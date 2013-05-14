@@ -101,6 +101,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'waffle.middleware.WaffleMiddleware',
+    'flipper.django-crossdomainxhr-middleware.XsSharing',
 )
 
 ROOT_URLCONF = 'flipper.urls'
