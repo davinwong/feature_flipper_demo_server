@@ -48,14 +48,20 @@ class VoteResource(ModelResource):
     answer = fields.ForeignKey(AnswerResource, 'answer')
     class Meta:
         queryset = Vote.objects.all()
+        filtering = {
+            "answer": ALL_WITH_RELATIONS
+        }
         allowed_methods = ['get', 'delete', 'post']
         authorization = Authorization()
 
 class NotificationResource(ModelResource):
-    user_from = fields.ForeignKey(UserResource, 'user')
-    user_to = fields.ForeignKey(UserResource, 'user')
+    user_from = fields.ForeignKey(UserResource, 'user_from')
+    user_to = fields.ForeignKey(UserResource, 'user_to')
 
     class Meta:
         queryset = Notification.objects.all()
+        filtering = {
+            "user_to": ALL_WITH_RELATIONS
+        }
         allowed_methods = ['get', 'delete', 'post', 'put']
         authorization = Authorization()

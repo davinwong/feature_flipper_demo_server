@@ -11,17 +11,26 @@ vote model: timestamp, user id, answer-id
 
 REST API endpoints
 ------------------
-Create a user	         example.com/api/user/ POST
-Get a list of users	     example.com/api/user/ GET
-Get a user	             example.com/api/user/[id] GET
-Create a question	     example.com/api/question/ POST
-Get a list of questions	 example.com/api/question/ GET
-Get a question	         example.com/api/question/[id] GET
-Create an answer	     example.com/api/answer/ POST
-Get a list of answers    example.com/api/answer/GET
-Query: list of answers   example.com/api/answer/?question=[id] GET
-Get an answer	         example.com/api/answer/[id] GET
+Create a user	               /api/user/ POST
+Get a list of users	           /api/user/ GET
+Get a user	                   /api/user/[id] GET
 
+Create a question	           /api/question/ POST
+Get a list of questions	       /api/question/ GET
+Get a question	               /api/question/[id]/ GET
+
+Create an answer	           /api/answer/ POST
+Get a list of answers          /api/answer/ GET
+Query: answers for question    /api/answer/?question=[id] GET
+Get an answer	               /api/answer/[id]/ GET
+
+Create a votes                 /api/vote/ POST
+Get a list of votes            /api/vote/ GET
+Query: votes for answer        /api/vote/?answer=[id] GET
+
+Create a notification          /api/notification/ POST
+Get a notification             /api/notification/[id]/ GET
+Query: notifications for user  /api/notification/?user_to=[id] GET
 
 caveats
 -------
