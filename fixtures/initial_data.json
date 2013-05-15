@@ -1,0 +1,72 @@
+[
+	{
+		"pk": 1, "model": "restapi.question", 
+		"fields": {
+			"timestamp": "2013-05-15T14:23:32.337Z", 
+			"question": "why is the sky blue", 
+			"user": 2}
+	}, 
+
+	{
+		"pk": 2, 
+		"model": "restapi.question", 
+		"fields": {
+			"timestamp": "2013-05-15T14:23:41.601Z", 
+			"question": "who am i", "user": 2}
+	}, 
+
+	{
+		"pk": 3, 
+		"model": "restapi.question", 
+		"fields": {
+			"timestamp": "2013-05-15T14:23:53.990Z", 
+			"question": "why did the chicken cross the road", "user": 3}
+	}, 
+
+	{
+		"pk": 1, 
+		"model": "restapi.answer", 
+		"fields": {
+			"answer": "to get to the other side", 
+			"timestamp": "2013-05-15T14:24:09.402Z", 
+			"question": 3, 
+			"user": 2}
+	},
+
+	{
+		"pk": 2, 
+		"model": "restapi.answer", 
+		"fields": {
+			"answer": "because science", 
+			"timestamp": "2013-05-15T14:24:25.514Z", 
+			"question": 1, "user": 3}
+	}, 
+
+	{
+		"pk": 3, 
+		"model": "restapi.answer",
+		"fields": {
+			"answer": "davin", 
+			"timestamp": "2013-05-15T14:24:37.521Z", 
+			"question": 2, 
+			"user": 3}
+	},
+
+	{
+		"pk": 1, 
+		"model": "restapi.vote",
+		"fields": {
+			"answer": 1, 
+			"timestamp": "2013-05-15T14:24:37.521Z",  
+			"user": 2}
+	},
+
+	{
+		"pk": 2, 
+		"model": "restapi.vote",
+		"fields": {
+			"answer": 1, 
+			"timestamp": "2013-05-15T14:24:37.521Z",  
+			"user": 3}
+	}
+]

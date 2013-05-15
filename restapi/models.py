@@ -28,6 +28,7 @@ class Question(models.Model):
 
     def __unicode__(self):
         return self.question
+
 class Answer(models.Model):
     answer = models.TextField()
     timestamp = models.DateTimeField(auto_now=True)
@@ -36,3 +37,11 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return self.answer
+
+class Vote(models.Model):
+    user = models.ForeignKey(User)
+    timestamp = models.DateTimeField(auto_now=True)
+    answer = models.ForeignKey('Answer')
+
+    def __unicode__(self):
+        return self.user.username + ": " + self.answer.answer
