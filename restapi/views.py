@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from restapi.models import Question, Answer
 import json
 from waffle.decorators import waffle_flag
+from tastypie.utils import trailing_slash
 
 
 # REST api for /feature/1/user/2/, returns True/False for whether given user should see given feature

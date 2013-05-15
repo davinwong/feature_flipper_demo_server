@@ -32,6 +32,16 @@ Create a notification          /api/notification/ POST
 Get a notification             /api/notification/[id]/ GET
 Query: notifications for user  /api/notification/?user_to=[id] GET
 
+
+example POST json
+{
+	"id": 5,
+	"question": "when is the right time",
+	"answer": "now",
+	"timestamp": "2013-01-01 00-00-00",
+	"user": {"pk" : 1}
+}
+
 caveats
 -------
 
@@ -47,3 +57,14 @@ commands
 --------
 
 load fixtures: python manage.py loaddata initial_data.json
+
+
+demo
+----
+
+1. turning something off in critical error
+2. 
+
+
+
+showing some users (randomize) - (still working on authentication)

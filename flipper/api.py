@@ -6,6 +6,11 @@ from waffle.models import Flag
 from django.db import models
 from tastypie import fields, utils
 from tastypie.resources import Resource
+from django.contrib.auth import authenticate, login, logout
+from tastypie.http import HttpUnauthorized, HttpForbidden
+from django.conf.urls import url
+from tastypie.utils import trailing_slash
+
 
 class UserResource(ModelResource):
     class Meta:
@@ -13,8 +18,34 @@ class UserResource(ModelResource):
         allowed_methods = ['get', 'delete', 'post', 'put']
         authorization = Authorization()
 
+    # def login(self, request, **kwargs):
+    #     self.method_check(request, allowed=['post'])
+
+    #     data = self.deserialize(request, request.raw_post_data, format=request.META.get('CONTENT_TYPE', 'application/json'))
+
+    #     username = data.get('username', '')
+    #     password = data.get('password', '')
+
+    #     user = authenticate(username=username, password=password)
+    #     if user:
+    #         if user.is_active:
+    #             login(request, user)
+    #             return self.create_response(request, {
+    #                 'success': True
+    #             })
+    #         else:
+    #             return self.create_response(request, {
+    #                 'success': False,
+    #                 'reason': 'disabled',
+    #                 }, HttpForbidden )
+    #     else:
+    #         return self.create_response(request, {
+    #             'success': False,
+    #             'reason': 'incorrect',
+    #             }, HttpUnauthorized )
+
 class QuestionResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
+    user = fields.ForeignKey(UserResource, 'user', full=True)
     class Meta:
 		queryset = Question.objects.all()
 		allowed_methods = ['get', 'delete', 'post', 'put']
@@ -22,6 +53,7 @@ class QuestionResource(ModelResource):
 
 class AnswerResource(ModelResource):
     question = fields.ForeignKey(QuestionResource, 'question')
+    user = fields.ForeignKey(UserResource, 'user',full=True)
     class Meta:
         queryset = Answer.objects.all()
         filtering = {
@@ -29,6 +61,10 @@ class AnswerResource(ModelResource):
         }
         allowed_methods = ['get', 'delete', 'post', 'put']
         authorization = Authorization()
+
+    # def dehydrate(self, bundle):
+    #     print self.user
+    #     bundle.data['username'] = User.objects.get(id=int(self.user.id))
 
 class EntryResource(ModelResource):
     class Meta:
