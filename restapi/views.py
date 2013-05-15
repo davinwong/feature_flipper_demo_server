@@ -69,7 +69,7 @@ def payment(request, user_id, credit_card_number):
 	return HttpResponse(myjson)
 
 
-def session(request):
+def session_post(request):
 	c = {}
 	myjson = json.dumps({'auth': True})
 	
@@ -77,7 +77,15 @@ def session(request):
 	response.set_cookie('user', request.POST['email'], max_age=1000)
 	return response
 
+def session_get(request):
+	cookie = request.COOKIES.get('user')
 
+	if cookie:
+		myjson = json.dumps({'auth': True})
+	else:
+		myjson = json.dumps({'auth': False})
+
+	return HttpResponse(myjson)
 
 def login(request):
 	c = {}
