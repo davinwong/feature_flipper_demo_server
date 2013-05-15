@@ -85,7 +85,7 @@ def session_post(request):
 		return response
 
 	if exist:
-		response.set_cookie('user', user.id, max_age=1000)
+		response.set_cookie('user', user.id, max_age=100000000)
 
 	return response
 
