@@ -89,7 +89,7 @@ def test(request):
 			c['question_array'].append(user.username + ":")
 			if questions:
 				for question in questions:
-					c['question_array'].append(question.question)
+					c['question_array'].append(question.text)
 			else:
 				c['question_array'].append("Hasn't asked any questions... sad.")
 

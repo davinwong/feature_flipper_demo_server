@@ -22,21 +22,21 @@ class Entry(models.Model):
         return super(Entry, self).save(*args, **kwargs)
 
 class Question(models.Model):
-    question = models.TextField()
+    text = models.TextField()
     timestamp = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
 
     def __unicode__(self):
-        return self.question
+        return self.text
 
 class Answer(models.Model):
-    answer = models.TextField()
+    text = models.TextField()
     timestamp = models.DateTimeField(auto_now=True)
     question = models.ForeignKey('Question')
     user = models.ForeignKey(User)
 
     def __unicode__(self):
-        return self.answer
+        return self.text
 
 class Vote(models.Model):
     user = models.ForeignKey(User)
@@ -44,7 +44,7 @@ class Vote(models.Model):
     answer = models.ForeignKey('Answer')
 
     def __unicode__(self):
-        return self.user.username + ": " + self.answer.answer
+        return self.user.username + ": " + self.answer.text
 
 class Notification(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
