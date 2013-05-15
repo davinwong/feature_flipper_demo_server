@@ -5,9 +5,9 @@ hack week at Top Hat with Stevo!
 
 server side Django. Tastypie REST, Waffle feature flipping.
 
-
 todo:
-vote model: timestamp, user id, answer-id
+wrap q, a, v, n in waffle for tastypie
+- ask anson: where are the tastypie views?
 
 REST API endpoints
 ------------------
@@ -36,15 +36,14 @@ caveats
 -------
 
 waffle requires flag name as identifier
-database - wrapping models
+database - changes to model are one-way
+
+next steps
+----------
+ab-testing: tracking data for users based on features active
 
 
 commands
 --------
 
 load fixtures: python manage.py loaddata initial_data.json
-
-
-filtering 
-
-get question ?=id
