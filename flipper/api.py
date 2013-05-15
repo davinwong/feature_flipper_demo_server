@@ -1,4 +1,4 @@
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL_WITH_RELATIONS
 from restapi.models import Entry, Question, Answer, Vote, Notification # ,User 
 from tastypie.authorization import Authorization
 from django.contrib.auth.models import User
@@ -24,6 +24,9 @@ class AnswerResource(ModelResource):
     question = fields.ForeignKey(QuestionResource, 'question')
     class Meta:
         queryset = Answer.objects.all()
+        filtering = {
+            "question": ALL_WITH_RELATIONS
+        }
         allowed_methods = ['get', 'delete', 'post', 'put']
         authorization = Authorization()
 

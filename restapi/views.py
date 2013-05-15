@@ -53,7 +53,7 @@ def feature_user(request, flag_id, user_id):
 		return HttpResponse(myjson)
 
 	# if "everyone" is unknown/null, check waffle-"user"-setting
-	flag_user = Flag.objects.filter(users__id=user_id, id=feature_id)
+	flag_user = Flag.objects.filter(users__id=user_id, id=flag_id)
 
 	if flag_user:
 		flag_user_bool = True
