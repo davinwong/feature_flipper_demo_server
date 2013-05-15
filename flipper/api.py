@@ -1,5 +1,5 @@
 from tastypie.resources import ModelResource
-from restapi.models import Entry, Question, Answer, Vote # ,User 
+from restapi.models import Entry, Question, Answer, Vote, Notification # ,User 
 from tastypie.authorization import Authorization
 from django.contrib.auth.models import User
 from waffle.models import Flag
@@ -46,4 +46,13 @@ class VoteResource(ModelResource):
     class Meta:
         queryset = Vote.objects.all()
         allowed_methods = ['get', 'delete', 'post']
+        authorization = Authorization()
+
+class NotificationResource(ModelResource):
+    user_from = fields.ForeignKey(UserResource, 'user')
+    user_to = fields.ForeignKey(UserResource, 'user')
+
+    class Meta:
+        queryset = Notification.objects.all()
+        allowed_methods = ['get', 'delete', 'post', 'put']
         authorization = Authorization()

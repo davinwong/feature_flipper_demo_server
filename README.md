@@ -14,7 +14,7 @@ caveats
 -------
 
 waffle requires flag name as identifier
-
+database - wrapping models
 
 
 commands

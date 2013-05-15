@@ -45,3 +45,15 @@ class Vote(models.Model):
 
     def __unicode__(self):
         return self.user.username + ": " + self.answer.answer
+
+class Notification(models.Model):
+    timestamp = models.DateTimeField(auto_now=True)
+    message = models.TextField()
+    user_from = models.ForeignKey(User, related_name='user_from')
+    user_to = models.ForeignKey(User, related_name='user_to')
+
+    def __unicode__(self):
+        return self.user_from.username + " to " + self.user_to.username + ": " + self.message 
+
+
+

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from restapi.models import Question, Answer, Vote
+from restapi.models import Question, Answer, Vote, Notification
 
 # class UserAdmin(admin.ModelAdmin):
 #     pass
@@ -17,3 +17,7 @@ admin.site.register(Answer, AnswerAdmin)
 class VoteAdmin(admin.ModelAdmin):
 	pass
 admin.site.register(Vote, VoteAdmin)
+
+class NotificationAdmin(admin.ModelAdmin):
+	pass
+admin.site.register(Notification, NotificationAdmin)
