@@ -32,6 +32,8 @@ Create a notification          /api/notification/ POST
 Get a notification             /api/notification/[id]/ GET
 Query: notifications for user  /api/notification/?user_to=[id] GET
 
+Check session				   /api/session/ GET
+
 
 example POST json
 {
