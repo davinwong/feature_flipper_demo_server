@@ -41,10 +41,10 @@ def test(request):
 
 	return render_to_response('test.html',c, context_instance = RequestContext(request))
 
-def feature_user(request, feature_number, user_number):
+def feature_user(request, flag_id, user_id):
 
 	# if waffle-"everyone"-setting is already set
-	feature = Flag.objects.get(id=feature_number)
+	feature = Flag.objects.get(id=flag_id)
 	if feature.everyone == True:
 		myjson = json.dumps({'active': True})
 		return HttpResponse(myjson)
@@ -53,7 +53,7 @@ def feature_user(request, feature_number, user_number):
 		return HttpResponse(myjson)
 
 	# if "everyone" is unknown/null, check waffle-"user"-setting
-	flag_user = Flag.objects.filter(users__id=user_number, id=feature_number)
+	flag_user = Flag.objects.filter(users__id=user_id, id=feature_id)
 
 	if flag_user:
 		flag_user_bool = True
@@ -86,7 +86,7 @@ def feature_user(request, feature_number, user_number):
 
 
 @waffle_flag('payment')
-def payment(request, user_number, credit_card_number):
+def payment(request, user_id, credit_card_number):
 	# fake payment processing
 	if int(credit_card_number) >= 100000000000000 and int(credit_card_number) <= 999999999999999:
 		myjson = json.dumps({'payment': True})
