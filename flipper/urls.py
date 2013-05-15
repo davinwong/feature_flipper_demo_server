@@ -26,4 +26,6 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^api/feature/(?P<flag_id>\d+)/user/(?P<user_id>\d+)/', 'restapi.views.feature_user'),
     (r'^api/payment/(?P<credit_card_number>\d+)/user/(?P<user_id>\d+)/', 'restapi.views.payment'),
+    (r'^api/session/', 'restapi.views.session'), 
+    (r'^login/', 'restapi.views.login'), 
 )

@@ -1,0 +1,10 @@
+<h1>Login</h1>
+
+
+<form method="post" action="/api/session/">
+{% csrf_token %}
+	<input id="email" name="email" type="text" value="">
+	<input id="password" name="password" type="password" value="">
+
+	<button>Login</button>
+</form>
