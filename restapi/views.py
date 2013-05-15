@@ -9,6 +9,7 @@ from restapi.models import Question, Answer
 import json
 from waffle.decorators import waffle_flag
 from tastypie.utils import trailing_slash
+from django.contrib.auth.models import User
 
 
 # REST api for /feature/1/user/2/, returns True/False for whether given user should see given feature
@@ -72,9 +73,20 @@ def payment(request, user_id, credit_card_number):
 def session_post(request):
 	c = {}
 	myjson = json.dumps({'auth': True})
-	
+	exist = True
 	response = HttpResponse(myjson)
-	response.set_cookie('user', request.POST['email'], max_age=1000)
+
+	try:
+		user = User.objects.get(username=request.POST['username'])
+	except:
+		myjson = json.dumps({'auth': False})
+		exist = False
+		response = HttpResponse(myjson)
+		return response
+
+	if exist:
+		response.set_cookie('user', user.id, max_age=1000)
+
 	return response
 
 def session_get(request):
