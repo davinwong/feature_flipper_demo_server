@@ -70,34 +70,53 @@ def payment(request, user_id, credit_card_number):
 	return HttpResponse(myjson)
 
 
-def session_post(request):
-	c = {}
-	myjson = json.dumps({'auth': True})
-	exist = True
-	response = HttpResponse(myjson)
+# def session_post(request):
+# 	c = {}
+# 	myjson = json.dumps({'auth': True})
+# 	exist = True
+# 	response = HttpResponse(myjson)
 
-	try:
-		user = User.objects.get(username=request.POST['username'])
-	except:
-		myjson = json.dumps({'auth': False})
-		exist = False
-		response = HttpResponse(myjson)
-		return response
+# 	try:
+# 		user = User.objects.get(username=request.POST['username'])
+# 	except:
+# 		myjson = json.dumps({'auth': False})
+# 		exist = False
+# 		response = HttpResponse(myjson)
+# 		return response
 
-	if exist:
-		response.set_cookie('user', user.id, max_age=100000000)
+# 	if exist:
+# 		response.set_cookie('user', user.id, max_age=100000000)
 
-	return response
+# 	return response
 
-def session_get(request):
-	cookie = request.COOKIES.get('user')
+def session(request):
+	if request.method == 'GET':
+		cookie = request.COOKIES.get('user')
 
-	if cookie:
+		if cookie:
+			myjson = json.dumps({'auth': True})
+		else:
+			myjson = json.dumps({'auth': False})
+
+		return HttpResponse(myjson)
+
+	if request.method == 'POST':
 		myjson = json.dumps({'auth': True})
-	else:
-		myjson = json.dumps({'auth': False})
+		exist = True
+		response = HttpResponse(myjson)
 
-	return HttpResponse(myjson)
+		try:
+			user = User.objects.get(username=request.POST['username'])
+		except:
+			myjson = json.dumps({'auth': False})
+			exist = False
+			response = HttpResponse(myjson)
+			return response
+
+		if exist:
+			response.set_cookie('user', user.id, max_age=100000000)
+
+		return response
 
 def login(request):
 	c = {}

@@ -33,6 +33,7 @@ Get a notification             /api/notification/[id]/ GET
 Query: notifications for user  /api/notification/?user_to=[id] GET
 
 Check session				   /api/session/ GET
+Create session				   /api/session/ POST
 
 
 example POST json
