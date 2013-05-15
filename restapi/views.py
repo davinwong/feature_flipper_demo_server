@@ -7,6 +7,7 @@ from waffle.models import Flag
 from django.contrib.auth.models import User
 from restapi.models import Question, Answer
 import json
+from waffle.decorators import waffle_flag
 
 def test(request):
 	c = {}
@@ -41,21 +42,17 @@ def test(request):
 	return render_to_response('test.html',c, context_instance = RequestContext(request))
 
 def feature_user(request, feature_number, user_number):
-	# flag = Flag.objects.get(id=feature_number)
-	# user = User.objects.get(id=user_number)
 
-	# if "everyone" is already set
+	# if waffle-"everyone"-setting is already set
 	feature = Flag.objects.get(id=feature_number)
 	if feature.everyone == True:
 		myjson = json.dumps({'active': True})
-		#json = "[{'active': true }]"
 		return HttpResponse(myjson)
 	elif feature.everyone == False:
 		myjson = json.dumps({'active': False})
-		#myjson = "[{'active': false }]"
 		return HttpResponse(myjson)
 
-	# if "everyone" is unknown / null: check user
+	# if "everyone" is unknown/null, check waffle-"user"-setting
 	flag_user = Flag.objects.filter(users__id=user_number, id=feature_number)
 
 	if flag_user:
@@ -67,11 +64,11 @@ def feature_user(request, feature_number, user_number):
 		myjson = json.dumps({'active': True})
 		return HttpResponse(myjson)
 
-	# check cookies
+	# waffle-percentage-setting, find cookies
 	cookie_string = 'dwf_' + feature.name
 	flag_cookie = request.COOKIES.get(cookie_string)
 
-	# compare string
+	# compare cookie string
 	if flag_cookie:
 		if flag_cookie == "True":
 			myjson = json.dumps({'active': True})
@@ -87,3 +84,14 @@ def feature_user(request, feature_number, user_number):
 	myjson = json.dumps({'active': False})
 	return HttpResponse(myjson)
 
+
+@waffle_flag('payment')
+def payment(request, user_number, credit_card_number):
+	# fake payment processing
+	if int(credit_card_number) >= 100000000000000 and int(credit_card_number) <= 999999999999999:
+		myjson = json.dumps({'payment': True})
+
+	else:
+		myjson = json.dumps({'payment': False})
+
+	return HttpResponse(myjson)

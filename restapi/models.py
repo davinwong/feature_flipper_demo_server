@@ -32,6 +32,7 @@ class Answer(models.Model):
     answer = models.TextField()
     timestamp = models.DateTimeField(auto_now=True)
     question = models.ForeignKey('Question')
+    user = models.ForeignKey(User)
 
     def __unicode__(self):
         return self.answer
