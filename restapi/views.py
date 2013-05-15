@@ -10,6 +10,7 @@ import json
 from waffle.decorators import waffle_flag
 from tastypie.utils import trailing_slash
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 
 # REST api for /feature/1/user/2/, returns True/False for whether given user should see given feature
@@ -89,6 +90,7 @@ def payment(request, user_id, credit_card_number):
 
 # 	return response
 
+@csrf_exempt
 def session(request):
 	if request.method == 'GET':
 		cookie = request.COOKIES.get('user')
