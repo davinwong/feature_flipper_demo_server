@@ -7,6 +7,8 @@ server side Django. Tastypie REST, Waffle feature flipping.
 
 graceful degradation
 
+anson:
+api/v2/authorization
 
 REST API endpoints
 ------------------
@@ -79,6 +81,9 @@ caveats
 waffle requires flag name as identifier
 database - changes to model are one-way
 critical error: web sockets for server instantly tell client
+
+
+switches -> fixed
 
 next steps
 ----------
