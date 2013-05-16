@@ -108,7 +108,15 @@ def session(request):
 		response = HttpResponse(myjson)
 
 		try:
-			user = User.objects.get(email=request.POST['email'])
+			print "request.body"
+			request_params = json.loads(request.body)
+			print "request_params"
+			print request_params
+			print 'email'
+			print request_params['email']
+
+			email = request_params['email']
+			user = User.objects.get(email=email)
 		except:
 			myjson = json.dumps({'auth': False})
 			exist = False
