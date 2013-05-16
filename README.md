@@ -5,9 +5,8 @@ hack week at Top Hat with Stevo!
 
 server side Django. Tastypie REST, Waffle feature flipping.
 
-todo:
-wrap q, a, v, n in waffle for tastypie
-- ask anson: where are the tastypie views?
+graceful degradation
+
 
 REST API endpoints
 ------------------

@@ -71,25 +71,7 @@ def payment(request, user_id, credit_card_number):
 	return HttpResponse(myjson)
 
 
-# def session_post(request):
-# 	c = {}
-# 	myjson = json.dumps({'auth': True})
-# 	exist = True
-# 	response = HttpResponse(myjson)
-
-# 	try:
-# 		user = User.objects.get(username=request.POST['username'])
-# 	except:
-# 		myjson = json.dumps({'auth': False})
-# 		exist = False
-# 		response = HttpResponse(myjson)
-# 		return response
-
-# 	if exist:
-# 		response.set_cookie('user', user.id, max_age=100000000)
-
-# 	return response
-
+# fake login / session
 @csrf_exempt
 def session(request):
 	if request.method == 'GET':
@@ -123,13 +105,13 @@ def session(request):
 
 		return response
 
+# login test
 def login(request):
 	c = {}
-
 	return render_to_response('login.html',c, context_instance = RequestContext(request))
 
 
-# ignore
+# random test
 def test(request):
 	c = {}
 
