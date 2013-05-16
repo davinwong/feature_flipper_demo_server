@@ -102,7 +102,7 @@ def session(request):
 
         if exist:
             print 'exist'
-            myjson = json.dumps({'auth': True, 'email':email, 'username':user.username})
+            myjson = json.dumps({'auth': True, 'email':email, 'username':user.username, 'id':user.id})
             response = HttpResponse(myjson)
             response.set_cookie('user', user.id, max_age=100000000)
 

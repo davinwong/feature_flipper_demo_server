@@ -10,6 +10,11 @@ graceful degradation
 anson:
 api/v2/authorization
 
+testing: advanced rest client. https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo
+
+authentication
+http://django-tastypie.readthedocs.org/en/latest/authentication_authorization.html
+
 REST API endpoints
 ------------------
 Create a user	               /api/user/ POST
