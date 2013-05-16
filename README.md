@@ -35,6 +35,10 @@ Query: notifications for user  /api/notification/?user_to=[id] GET
 Check session				   /api/session/ GET
 Create session				   /api/session/ POST
 
+Also works                     PUT, DELETE
+
+json payload
+------------
 
 vote POST json payload
 {
