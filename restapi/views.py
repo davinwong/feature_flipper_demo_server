@@ -103,20 +103,13 @@ def session(request):
 		return HttpResponse(myjson)
 
 	if request.method == 'POST':
-		myjson = json.dumps({'auth': True})
 		exist = True
-		response = HttpResponse(myjson)
 
 		try:
-			print "request.body"
 			request_params = json.loads(request.body)
-			print "request_params"
-			print request_params
-			print 'email'
-			print request_params['email']
-
 			email = request_params['email']
 			user = User.objects.get(email=email)
+
 		except:
 			myjson = json.dumps({'auth': False})
 			exist = False
@@ -124,6 +117,8 @@ def session(request):
 			return response
 
 		if exist:
+			myjson = json.dumps({'auth': True, 'email':email, 'username':user.username})
+			response = HttpResponse(myjson)
 			response.set_cookie('user', user.id, max_age=100000000)
 
 		return response
