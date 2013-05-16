@@ -99,6 +99,7 @@ switches -> fixed
 next steps
 ----------
 ab-testing: tracking data for users based on features active
+better interface for user groups
 
 
 commands
@@ -106,6 +107,11 @@ commands
 
 pip install django-waffle
 load fixtures: python manage.py loaddata initial_data.json
+
+
+notes
+-----
+cookie names - spaces not allowed
 
 
 
