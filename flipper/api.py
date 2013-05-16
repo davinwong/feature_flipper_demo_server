@@ -15,9 +15,7 @@ from tastypie.utils import trailing_slash
 from waffle.decorators import waffle_flag
 
 
-
-
-### allows us to use waffle feature lags for resources/models
+### allows us to use waffle feature lags for resources/models ###
 def feature_user_resource(request, flag_id):
 
     # if waffle-"everyone"-setting is already set
