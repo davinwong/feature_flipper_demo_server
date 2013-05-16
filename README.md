@@ -36,6 +36,23 @@ Check session				   /api/session/ GET
 Create session				   /api/session/ POST
 
 
+vote POST json payload
+{
+"user": {"pk":2},
+"answer": {"pk":2},
+"timestamp": "2013-05-15T14:24:37.521Z"
+}
+
+
+notification POST json payload
+{
+"user_from": {"pk":2},
+"user_to": {"pk":3},
+"message": "sup stevo",
+"timestamp": "2013-05-15T14:24:37.521Z"
+}
+
+
 example POST json
 {
 	"id": 5,
@@ -45,11 +62,20 @@ example POST json
 	"user": {"pk" : 1}
 }
 
+
+demo
+----
+
+1. turning something off in critical error
+2. diff users, diff features (randomize)
+
+
 caveats
 -------
 
 waffle requires flag name as identifier
 database - changes to model are one-way
+critical error: web sockets for server instantly tell client
 
 next steps
 ----------
@@ -62,12 +88,4 @@ commands
 load fixtures: python manage.py loaddata initial_data.json
 
 
-demo
-----
 
-1. turning something off in critical error
-2. 
-
-
-
-showing some users (randomize) - (still working on authentication)
