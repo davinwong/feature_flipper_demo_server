@@ -111,12 +111,12 @@ def session(request):
 # login test
 def login(request):
     c = {}
-    if waffle.flag_is_active(request, 'vote'):
-        print "waffle flag is active"
-        a = 1
-    else:
-        print "wafle flag is not active"
-        a = 2
+    # if waffle.flag_is_active(request, 'vote'):
+    #     print "waffle flag is active"
+    #     a = 1
+    # else:
+    #     print "wafle flag is not active"
+    #     a = 2
     return render_to_response('login.html',c, context_instance = RequestContext(request))
 
 

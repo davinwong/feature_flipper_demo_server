@@ -72,11 +72,15 @@ def feature_user_resource(request, flag_id):
 
     return False
 
-# vote feature. assumes vote's flag_id = 2
+# upvote feature. assumes vote's flag_id = 2
 class VoteFlagAuthentication(Authentication):
     def is_authenticated(self, request, object=None):
         return feature_user_resource(request, 2)
 
+# notification feature. assumes notification's flag_id = 3
+class NotificationFlagAuthentication(Authentication):
+    def is_authenticated(self, request, object=None):
+        return feature_user_resource(request, 3)
 
 ### tastypie resources ###
 
@@ -150,3 +154,4 @@ class NotificationResource(ModelResource):
         }
         allowed_methods = ['get', 'delete', 'post', 'put']
         authorization = Authorization()
+        authentication = NotificationFlagAuthentication()
