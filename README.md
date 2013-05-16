@@ -7,16 +7,19 @@ server side Django. Tastypie REST, Waffle feature flipping.
 
 graceful degradation
 
-anson:
-api/v2/authorization
+anson: thm example: api/v2/authorization
 
-testing: advanced rest client. https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo
+testing: advanced rest client for chrome; https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo; restforchrome.blogspot.com
 
 authentication
 http://django-tastypie.readthedocs.org/en/latest/authentication_authorization.html
 
 REST API endpoints
 ------------------
+
+Get status of a feature is on/off for user   /api/feature/[f_id]/user/[u_id]/ GET
+Get status of all feature for user	         /api/feature/user/[u_id]/ GET
+
 Create a user	               /api/user/ POST
 Get a list of users	           /api/user/ GET
 Get a user	                   /api/user/[id] GET
@@ -83,9 +86,12 @@ demo
 caveats
 -------
 
-waffle requires flag name as identifier
+waffle requires flag name as identifier -> SOLVED use name as an identifier, use notes for text
+resource featuring -> SOLVED using authentication checking whether user should have feature.
 database - changes to model are one-way
 critical error: web sockets for server instantly tell client
+
+cookie - first load doesnt go so well
 
 
 switches -> fixed
@@ -98,6 +104,7 @@ ab-testing: tracking data for users based on features active
 commands
 --------
 
+pip install django-waffle
 load fixtures: python manage.py loaddata initial_data.json
 
 

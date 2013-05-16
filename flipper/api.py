@@ -35,29 +35,27 @@ def feature_user_resource(request, flag_id):
         "waffle flag is not active"
         print feature.name
 
-    # abort if not logged in
-    logged_in = True
-    try:
-        user_cookie = request.COOKIES.get('user')
-    except:
-        logged_in = False
-        return False
-
-    user_id = int(user_cookie)
-
     # if "everyone" is unknown/null, check waffle-"user"-setting
-    flag_user = Flag.objects.filter(users__id=user_id, id=flag_id)
 
-    if flag_user:
-        flag_user_bool = True
-    else:
-        flag_user_bool = False
+    # check if logged in. find user cookie.
+    print "wat1"
+    user_cookie = request.COOKIES.get('user')
+    print "Wat2"
 
-    if flag_user_bool:
-        return True
+    print user_cookie
+    if user_cookie:
+        user_id = int(user_cookie)
+
+        # find whether user is assigned the flag
+        flag_user = Flag.objects.filter(users__id=user_id, id=flag_id)
+
+        if flag_user:
+            return True
 
     # waffle-percentage-setting, find cookies
     cookie_string = 'dwf_' + feature.name
+    print cookie_string
+    print "cookie_string"
     flag_cookie = request.COOKIES.get(cookie_string)
 
     # compare cookie string
@@ -66,9 +64,6 @@ def feature_user_resource(request, flag_id):
             return True
         if flag_cookie == "False":
             return False
-
-    if not flag_user_bool:
-        return False
 
     return False
 

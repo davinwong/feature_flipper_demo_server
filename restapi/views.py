@@ -13,6 +13,71 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
 
+# REST api for /feature/user/2/, returns [{"id":1, "name": "vote", "active": True}, {"id":2, "name": "notification", "active": False}] for given user and all features
+def feature_user_all(request, user_id):
+    
+    flags = Flag.objects.all()
+    all_feature_array = []
+
+    for flag in flags:
+        feature_dictionary = {}
+
+        # set feature id, feature name
+        feature_dictionary['id'] = flag.id
+        feature_dictionary['name'] = flag.name
+
+        # if waffle-"everyone"-setting is already set
+        if flag.everyone == True:
+            feature_dictionary['active'] = True
+            all_feature_array.append(feature_dictionary)
+            continue
+        elif flag.everyone == False:
+            feature_dictionary['active'] = False
+            all_feature_array.append(feature_dictionary)
+            continue
+
+        # if "everyone" is unknown/null, check waffle-"user"-setting
+        flag_user_bool = True
+
+        try:
+            flag_user = Flag.objects.filter(users__id=user_id, id=flag.id)
+        except:
+            flag_user_bool = False
+
+        if flag_user_bool:
+            feature_dictionary['active'] = True
+            all_feature_array.append(feature_dictionary)
+            continue
+
+        # waffle-percentage-setting, find cookies
+        cookie_string = 'dwf_' + flag.name
+        flag_cookie = request.COOKIES.get(cookie_string)
+
+        # compare cookie string
+        if flag_cookie:
+            if flag_cookie == "True":
+                feature_dictionary['active'] = True
+                all_feature_array.append(feature_dictionary)
+                continue
+
+            if flag_cookie == "False":
+                feature_dictionary['active'] = False
+                all_feature_array.append(feature_dictionary)
+                continue
+
+        if not flag_user_bool:
+            feature_dictionary['active'] = False
+            all_feature_array.append(feature_dictionary)
+            continue
+
+        all_feature_array.append(feature_dictionary)
+
+    # return HttpResponse(all_feature_array)
+
+    all_feature_array_json = json.dumps(all_feature_array)
+    return HttpResponse(all_feature_array_json)
+
+
 # REST api for /feature/1/user/2/, returns True/False for whether given user should see given feature
 def feature_user(request, flag_id, user_id):
 
@@ -26,11 +91,11 @@ def feature_user(request, flag_id, user_id):
         return HttpResponse(myjson)
 
     # if "everyone" is unknown/null, check waffle-"user"-setting
-    flag_user = Flag.objects.filter(users__id=user_id, id=flag_id)
+    flag_user_bool = True
 
-    if flag_user:
-        flag_user_bool = True
-    else:
+    try:
+        flag_user = Flag.objects.filter(users__id=user_id, id=flag_id)
+    except:
         flag_user_bool = False
 
     if flag_user_bool:
@@ -74,18 +139,24 @@ def payment(request, user_id, credit_card_number):
 # fake login / session
 @csrf_exempt
 def session(request):
+
+    # get request to check if user has user-cookie, meaning they are logged in
     if request.method == 'GET':
+
         cookie = request.COOKIES.get('user')
-        user_id = int(cookie)
         
+        if not cookie:
+            myjson = json.dumps({'auth': False})
 
         if cookie:
+            user_id = int(cookie)
             myjson = json.dumps({'auth': True})
         else:
             myjson = json.dumps({'auth': False})
 
         return HttpResponse(myjson)
 
+    # used to log in, creates a user-cookie
     if request.method == 'POST':
         exist = True
 
