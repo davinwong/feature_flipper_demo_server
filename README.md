@@ -1,11 +1,13 @@
 feature_flipper
 ===============
 
-2nd place at Top Hat hack week with Stevo!
+2nd place at Top Hat hack week with Stevo! [Feature flipper demo client](https://github.com/vovantics/feature_flipper_demo_client)
 
 This is a demo for a feature flipper. Goals: fast deployment, a/b testing, modular features.
 
 Django, Tastypie rest api, Waffle feature flags.
+
+
 
 
 REST API endpoints
