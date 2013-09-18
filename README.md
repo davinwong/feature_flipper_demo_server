@@ -1,48 +1,44 @@
 feature_flipper
 ===============
 
-hack week at Top Hat with Stevo!
+2nd place at Top Hat hack week with Stevo!
 
-server side Django. Tastypie REST, Waffle feature flipping.
+This is a demo for a feature flipper. Goals: fast deployment, a/b testing, modular features.
 
-graceful degradation
+Django, Tastypie rest api, Waffle feature flags.
 
-anson: thm example: api/v2/authorization
-
-testing: advanced rest client for chrome; https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo; restforchrome.blogspot.com
-
-authentication
-http://django-tastypie.readthedocs.org/en/latest/authentication_authorization.html
 
 REST API endpoints
 ------------------
 
-Get status of a feature is on/off for user   /api/feature/[f_id]/user/[u_id]/ GET
-Get status of all feature for user	         /api/feature/user/[u_id]/ GET
 
-Create a user	               /api/user/ POST
-Get a list of users	           /api/user/ GET
-Get a user	                   /api/user/[id] GET
+|---|---|
+|Get status of a feature is on/off for user  | /api/feature/[f_id]/user/[u_id]/ GET |
+|Get status of all feature for user	 |        /api/feature/user/[u_id]/ GET |
 
-Create a question	           /api/question/ POST
-Get a list of questions	       /api/question/ GET
-Get a question	               /api/question/[id]/ GET
+|Create a user	               |/api/user/ POST |
+|Get a list of users	       |    /api/user/ GET |
+|Get a user	               |    /api/user/[id] GET |
 
-Create an answer	           /api/answer/ POST
-Get a list of answers          /api/answer/ GET
-Query: answers for question    /api/answer/?question=[id] GET
-Get an answer	               /api/answer/[id]/ GET
+|Create a question	       |    /api/question/ POST |
+|Get a list of questions	|       /api/question/ GET |
+|Get a question	               |/api/question/[id]/ GET |
 
-Create a votes                 /api/vote/ POST
-Get a list of votes            /api/vote/ GET
-Query: votes for answer        /api/vote/?answer=[id] GET
+|Create an answer	        |   /api/answer/ POST |
+|Get a list of answers          |/api/answer/ GET |
+|Query: answers for question    |/api/answer/?question=[id] GET |
+|Get an answer	               |/api/answer/[id]/ GET |
 
-Create a notification          /api/notification/ POST
-Get a notification             /api/notification/[id]/ GET
-Query: notifications for user  /api/notification/?user_to=[id] GET
+|Create a votes                 |/api/vote/ POST |
+|Get a list of votes            |/api/vote/ GET |
+|Query: votes for answer        |/api/vote/?answer=[id] GET |
 
-Check session				   /api/session/ GET
-Create session				   /api/session/ POST
+|Create a notification          |/api/notification/ POST |
+|Get a notification             |/api/notification/[id]/ GET |
+|Query: notifications for user  |/api/notification/?user_to=[id] GET |
+
+|Check session			|	   /api/session/ GET |
+|Create session			|	   /api/session/ POST |
 
 Also works                     PUT, DELETE
 
@@ -80,38 +76,4 @@ demo
 ----
 
 1. turning something off in critical error
-2. diff users, diff features (randomize)
-
-
-caveats
--------
-
-waffle requires flag name as identifier -> SOLVED use name as an identifier, use notes for text
-resource featuring -> SOLVED using authentication checking whether user should have feature.
-database - changes to model are one-way
-critical error: web sockets for server instantly tell client
-
-cookie - first load doesnt go so well
-
-
-switches -> fixed
-
-next steps
-----------
-ab-testing: tracking data for users based on features active
-better interface for user groups
-
-
-commands
---------
-
-pip install django-waffle
-load fixtures: python manage.py loaddata initial_data.json
-
-
-notes
------
-cookie names - spaces not allowed
-
-
-
+2. different users, different features (randomize)
