@@ -11,7 +11,7 @@ Django, Tastypie rest api, Waffle feature flags.
 REST API endpoints
 ------------------
 
-
+|decsription|endpoint|
 |---|---|
 |Get status of a feature is on/off for user  | /api/feature/[f_id]/user/[u_id]/ GET |
 |Get status of all feature for user	 |        /api/feature/user/[u_id]/ GET |
