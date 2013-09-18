@@ -11,36 +11,30 @@ Django, Tastypie rest api, Waffle feature flags.
 REST API endpoints
 ------------------
 
-|decsription|endpoint|
+|description|endpoint|
 |---|---|
 |Get status of a feature is on/off for user  | /api/feature/[f_id]/user/[u_id]/ GET |
 |Get status of all feature for user	 |        /api/feature/user/[u_id]/ GET |
-
 |Create a user	               |/api/user/ POST |
 |Get a list of users	       |    /api/user/ GET |
 |Get a user	               |    /api/user/[id] GET |
-
 |Create a question	       |    /api/question/ POST |
 |Get a list of questions	|       /api/question/ GET |
 |Get a question	               |/api/question/[id]/ GET |
-
 |Create an answer	        |   /api/answer/ POST |
 |Get a list of answers          |/api/answer/ GET |
 |Query: answers for question    |/api/answer/?question=[id] GET |
 |Get an answer	               |/api/answer/[id]/ GET |
-
 |Create a votes                 |/api/vote/ POST |
 |Get a list of votes            |/api/vote/ GET |
 |Query: votes for answer        |/api/vote/?answer=[id] GET |
-
 |Create a notification          |/api/notification/ POST |
 |Get a notification             |/api/notification/[id]/ GET |
 |Query: notifications for user  |/api/notification/?user_to=[id] GET |
-
 |Check session			|	   /api/session/ GET |
 |Create session			|	   /api/session/ POST |
 
-Also works                     PUT, DELETE
+Also: PUT, DELETE
 
 json payload
 ------------
